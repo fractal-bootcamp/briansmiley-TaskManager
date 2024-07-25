@@ -3,11 +3,19 @@ import { Task } from "../interfaces/Task";
 
 interface TaskStore {
   tasks: Task[];
-  addTask: (task: Task) => void;
+  addTasks: (taskOrTasks: Task | Task[]) => void;
+  clearTasks: () => void;
 }
 const useTaskStore = create<TaskStore>()(set => ({
   tasks: [],
-  addTask: (task: Task) => set(state => ({ tasks: [...state.tasks, task] }))
+  addTasks: (taskOrTasks: Task | Task[]) => {
+    if (Array.isArray(taskOrTasks)) {
+      set(state => ({ tasks: [...state.tasks, ...taskOrTasks] }));
+    } else {
+      set(state => ({ tasks: [...state.tasks, taskOrTasks] }));
+    }
+  },
+  clearTasks: () => set({ tasks: [] })
 }));
 
 export default useTaskStore;
