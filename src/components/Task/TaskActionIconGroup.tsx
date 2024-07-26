@@ -9,37 +9,34 @@ interface TaskActionIconGroupProps {
 export default function TaskActionIconGroup({
   task
 }: TaskActionIconGroupProps) {
-  const { setTaskStatus } = useTaskStore();
+  const { setTaskStatus, setTaskArchived } = useTaskStore();
+  const completion = {
+    icon: task.status === "completed" ? BadgeCheck : Badge,
+    tooltip: task.status === "completed" ? "Uncomplete" : "Complete",
+    action: () =>
+      setTaskStatus(
+        task.id,
+        task.status === "completed" ? "pending" : "completed"
+      )
+  };
+  const archive = {
+    icon: task.archived ? ArchiveRestore : Archive,
+    tooltip: task.archived ? "Unarchive" : "Archive",
+    action: () => setTaskArchived(task.id, !task.archived)
+  };
   return (
     <div className="flex items-center gap-2">
-      {/* Complete/Incomplete Toggle */}
-      {task.status === "completed" ? (
-        <TaskActionIcon
-          Icon={BadgeCheck}
-          action={() => setTaskStatus(task.id, "pending")}
-          tooltip="Uncomplete"
-        />
-      ) : (
-        <TaskActionIcon
-          Icon={Badge}
-          action={() => setTaskStatus(task.id, "completed")}
-          tooltip="Complete"
-        />
-      )}
       <TaskActionIcon Icon={Edit} action={() => {}} tooltip="Edit" />
-      {task.status === "archived" ? (
-        <TaskActionIcon
-          Icon={ArchiveRestore}
-          action={() => setTaskStatus(task.id, "pending")}
-          tooltip="Unarchive"
-        />
-      ) : (
-        <TaskActionIcon
-          Icon={Archive}
-          action={() => setTaskStatus(task.id, "archived")}
-          tooltip="Archive"
-        />
-      )}
+      <TaskActionIcon
+        Icon={completion.icon}
+        action={completion.action}
+        tooltip={completion.tooltip}
+      />
+      <TaskActionIcon
+        Icon={archive.icon}
+        action={archive.action}
+        tooltip={archive.tooltip}
+      />
     </div>
   );
 }
