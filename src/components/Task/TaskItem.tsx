@@ -27,9 +27,13 @@ export default function TaskItem({ task }: TaskItemProps) {
         <div className=" rounded-md bg-slate-200 border border-slate-800 w-6 h-6"></div>
       </div>
       {/* Title and description */}
-      <div className={`max-h-full`}>
-        <div className="text-lg font-semibold text-black">{task.title}</div>
-        <div className="text-sm text-slate-500 ">{task.description}</div>
+      <div className={``}>
+        <div className="text-lg font-semibold text-black truncate">
+          {task.title}
+        </div>
+        <div className="text-sm text-slate-500 line-clamp-5 ">
+          {task.description}
+        </div>
       </div>
     </div>
   );
