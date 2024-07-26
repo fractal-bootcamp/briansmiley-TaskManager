@@ -38,17 +38,19 @@ export default function TaskItem({ task }: TaskItemProps) {
 
       {/* Title and description */}
       <div className={`w-full`}>
-        <div className="text-lg font-semibold text-black truncate w-[60%]">
-          {editing ? (
-            <textarea
-              className="w-full bg-white border border-black p-1 resize-none"
-              rows={1}
-              value={task.title}
-              onChange={e => setTaskTitle(task.id, e.target.value)}
-            />
-          ) : (
-            task.title
-          )}
+        <div className="tooltip max-w-[60%] " data-tip={task.title}>
+          <div className="text-lg text-start font-semibold text-black truncate w-full">
+            {editing ? (
+              <textarea
+                className="w-full bg-white border border-black p-1 resize-none"
+                rows={1}
+                value={task.title}
+                onChange={e => setTaskTitle(task.id, e.target.value)}
+              />
+            ) : (
+              task.title
+            )}
+          </div>
         </div>
         <div className="text-sm text-slate-500 line-clamp-5 w-full">
           {editing ? (
