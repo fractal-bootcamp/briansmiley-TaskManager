@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Task } from "../../interfaces/Task";
 import TaskActionIconGroup from "./TaskActionIconGroup";
+import useTaskStore from "../../stores/useTaskStore";
 
 interface TaskItemProps {
   task: Task;
@@ -20,22 +22,45 @@ const displayStatus = (statuses: Task["statuses"]) => {
 };
 
 export default function TaskItem({ task }: TaskItemProps) {
+  const [editing, setEditing] = useState(false);
   const taskDisplayStatus = displayStatus(task.statuses);
+  const { setTaskTitle, setTaskDescription } = useTaskStore();
   return (
     <div
       className={`${classes[taskDisplayStatus]} relative w-[350px] max-h-[150px] flex items-start rounded-md px-2 py-1 `}
     >
       <div className="absolute top-1 right-1 flex items-center justify-center text-slate-500 hover:text-black hover:cursor-pointer rounded-md">
-        <TaskActionIconGroup task={task} />
+        <TaskActionIconGroup
+          task={task}
+          editOnclick={() => setEditing(!editing)}
+        />
       </div>
 
       {/* Title and description */}
-      <div className={``}>
-        <div className="text-lg font-semibold text-black truncate">
-          {task.title}
+      <div className={`w-full`}>
+        <div className="text-lg font-semibold text-black truncate w-[60%]">
+          {editing ? (
+            <textarea
+              className="w-full bg-white border border-black p-1 resize-none"
+              rows={1}
+              value={task.title}
+              onChange={e => setTaskTitle(task.id, e.target.value)}
+            />
+          ) : (
+            task.title
+          )}
         </div>
-        <div className="text-sm text-slate-500 line-clamp-5 ">
-          {task.description}
+        <div className="text-sm text-slate-500 line-clamp-5 w-full">
+          {editing ? (
+            <textarea
+              className="w-full bg-white border border-black p-1 resize-none"
+              rows={4}
+              value={task.description}
+              onChange={e => setTaskDescription(task.id, e.target.value)}
+            />
+          ) : (
+            task.description
+          )}
         </div>
       </div>
     </div>
