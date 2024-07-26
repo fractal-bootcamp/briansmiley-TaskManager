@@ -17,7 +17,7 @@ export default function TaskItem({ task }: TaskItemProps) {
     <div
       className={`${
         classes[task.status]
-      } relative w-[350px] max-h-[150px] overflow-hidden text-ellipsis flex items-start rounded-md pr-2 pl-0 py-1 `}
+      } relative w-[350px] max-h-[150px] flex items-start rounded-md px-2 py-1 `}
     >
       <div className="absolute top-1 right-1 flex items-center justify-center text-slate-500 hover:text-black hover:cursor-pointer rounded-md">
         <TaskActionIconGroup task={task} />
