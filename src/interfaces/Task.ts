@@ -2,8 +2,9 @@ export interface Task {
   id: string;
   title: string;
   description: string;
-  status: TaskStatus;
-  archived: boolean;
+  statuses: {
+    begun: boolean;
+    completed: boolean;
+    archived: boolean;
+  };
 }
-
-export type TaskStatus = "pending" | "inProgress" | "completed";

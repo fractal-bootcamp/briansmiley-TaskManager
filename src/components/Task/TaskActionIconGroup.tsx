@@ -17,39 +17,33 @@ interface TaskActionIconGroupProps {
 export default function TaskActionIconGroup({
   task
 }: TaskActionIconGroupProps) {
-  const { setTaskStatus, setTaskArchived } = useTaskStore();
+  const { setTaskStatus } = useTaskStore();
   const completion = {
-    icon: task.status === "completed" ? BadgeCheck : Badge,
-    tooltip: task.status === "completed" ? "Uncomplete" : "Complete",
-    action: () =>
-      setTaskStatus(
-        task.id,
-        task.status === "completed" ? "pending" : "completed"
-      )
+    icon: task.statuses.completed ? BadgeCheck : Badge,
+    tooltip: task.statuses.completed ? "Uncomplete" : "Complete",
+    action: () => setTaskStatus(task.id, "completed", !task.statuses.completed)
   };
   const archive = {
-    icon: task.archived ? ArchiveRestore : Archive,
-    tooltip: task.archived ? "Unarchive" : "Archive",
-    action: () => setTaskArchived(task.id, !task.archived)
+    icon: task.statuses.archived ? ArchiveRestore : Archive,
+    tooltip: task.statuses.archived ? "Unarchive" : "Archive",
+    action: () => setTaskStatus(task.id, "archived", !task.statuses.archived)
   };
-  const progess = {
-    icon: task.status === "inProgress" ? CircleEllipsis : CirclePlay,
-    tooltip: task.status === "inProgress" ? "Unbegin" : "Begin",
-    action: () =>
-      setTaskStatus(
-        task.id,
-        task.status === "inProgress" ? "pending" : "inProgress"
-      )
+  const progress = {
+    icon: task.statuses.begun ? CircleEllipsis : CirclePlay,
+    tooltip: task.statuses.begun ? "Unbegin" : "Begin",
+    action: () => setTaskStatus(task.id, "begun", !task.statuses.begun)
   };
-  const showProgessStatus = !(task.status === "completed") && !task.archived;
+  const showProgessStatus = !(
+    task.statuses.completed || task.statuses.archived
+  );
   return (
     <div className="flex items-center gap-2">
       <TaskActionIcon Icon={Edit} action={() => {}} tooltip="Edit" />
       {showProgessStatus && (
         <TaskActionIcon
-          Icon={progess.icon}
-          action={progess.action}
-          tooltip={progess.tooltip}
+          Icon={progress.icon}
+          action={progress.action}
+          tooltip={progress.tooltip}
         />
       )}
       <TaskActionIcon

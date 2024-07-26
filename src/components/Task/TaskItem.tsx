@@ -12,11 +12,18 @@ const classes = {
   archived: "border bg-gray-100 border-gray-800"
 };
 
+const displayStatus = (statuses: Task["statuses"]) => {
+  if (statuses.archived) return "archived";
+  if (statuses.completed) return "completed";
+  if (statuses.begun) return "inProgress";
+  return "pending";
+};
+
 export default function TaskItem({ task }: TaskItemProps) {
-  const displayStatus = task.archived ? "archived" : task.status;
+  const taskDisplayStatus = displayStatus(task.statuses);
   return (
     <div
-      className={`${classes[displayStatus]} relative w-[350px] max-h-[150px] flex items-start rounded-md px-2 py-1 `}
+      className={`${classes[taskDisplayStatus]} relative w-[350px] max-h-[150px] flex items-start rounded-md px-2 py-1 `}
     >
       <div className="absolute top-1 right-1 flex items-center justify-center text-slate-500 hover:text-black hover:cursor-pointer rounded-md">
         <TaskActionIconGroup task={task} />

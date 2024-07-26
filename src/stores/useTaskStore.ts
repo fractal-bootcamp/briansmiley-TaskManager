@@ -5,8 +5,11 @@ interface TaskStore {
   tasks: Task[];
   addTasks: (taskOrTasks: Task | Task[]) => void;
   clearTasks: () => void;
-  setTaskStatus: (taskId: string, status: Task["status"]) => void;
-  setTaskArchived: (taskId: string, archived: boolean) => void;
+  setTaskStatus: (
+    taskId: string,
+    status: keyof Task["statuses"],
+    value: boolean
+  ) => void;
 }
 const useTaskStore = create<TaskStore>()(set => ({
   tasks: [],
@@ -18,16 +21,16 @@ const useTaskStore = create<TaskStore>()(set => ({
     }
   },
   clearTasks: () => set({ tasks: [] }),
-  setTaskStatus: (taskId: string, status: Task["status"]) =>
+  setTaskStatus: (
+    taskId: string,
+    status: keyof Task["statuses"],
+    value: boolean
+  ) =>
     set(state => ({
       tasks: state.tasks.map(task =>
-        task.id === taskId ? { ...task, status } : task
-      )
-    })),
-  setTaskArchived: (taskId: string, archived: boolean) =>
-    set(state => ({
-      tasks: state.tasks.map(task =>
-        task.id === taskId ? { ...task, archived: archived } : task
+        task.id === taskId
+          ? { ...task, statuses: { ...task.statuses, [status]: value } }
+          : task
       )
     }))
 }));
