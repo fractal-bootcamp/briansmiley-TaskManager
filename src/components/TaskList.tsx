@@ -1,4 +1,4 @@
-import TaskItem from "./TaskItem";
+import TaskItem from "./Task/TaskItem";
 import { Task } from "../interfaces/Task";
 
 interface TaskListProps {
