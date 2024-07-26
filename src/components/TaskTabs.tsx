@@ -1,17 +1,11 @@
 import TaskList from "./TaskList";
-import { Task, TaskStatus } from "../interfaces/Task";
+import { Task } from "../interfaces/Task";
 
 export default function TaskTabs({ tasks }: { tasks: Task[] }) {
-  const pendingTasks = tasks.filter(task => task.status === TaskStatus.Pending);
-  const inProgressTasks = tasks.filter(
-    task => task.status === TaskStatus.InProgress
-  );
-  const completedTasks = tasks.filter(
-    task => task.status === TaskStatus.Completed
-  );
-  const archivedTasks = tasks.filter(
-    task => task.status === TaskStatus.Archived
-  );
+  const pendingTasks = tasks.filter(task => task.status === "pending");
+  const inProgressTasks = tasks.filter(task => task.status === "inProgress");
+  const completedTasks = tasks.filter(task => task.status === "completed");
+  const archivedTasks = tasks.filter(task => task.status === "archived");
 
   return (
     <div role="tablist" className="tabs tabs-bordered">
