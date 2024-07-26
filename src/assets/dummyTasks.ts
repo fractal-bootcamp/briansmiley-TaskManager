@@ -1,4 +1,4 @@
-import { Task, TaskStatus } from "../interfaces/Task.d";
+import { Task, TaskStatus } from "../interfaces/Task";
 
 export const dummyTasks: Task[] = [
   {

@@ -10,10 +10,7 @@ function App() {
     return () => clearTasks();
   }, []);
   return (
-    <div className="flex flex-col gap-2 p-2">
-      {/* {tasks.map(task => (
-        <TaskItem key={task.id} task={task} />
-      ))} */}
+    <div className="flex flex-col w-full h-full items-center bg-slate-200 gap-2 p-2">
       <TaskTabs tasks={tasks} />
     </div>
   );

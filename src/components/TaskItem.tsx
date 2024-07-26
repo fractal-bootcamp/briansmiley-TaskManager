@@ -1,4 +1,6 @@
-import { Task } from "../interfaces/Task";
+import { Archive } from "lucide-react";
+import { Task, TaskStatus } from "../interfaces/Task";
+import useTaskStore from "../stores/useTaskStore";
 
 interface TaskItemProps {
   task: Task;
@@ -11,12 +13,21 @@ const classes = {
   archived: "border bg-gray-100 border-gray-800"
 };
 export default function TaskItem({ task }: TaskItemProps) {
+  const { setTaskStatus } = useTaskStore();
   return (
     <div
       className={`${
         classes[task.status]
-      } w-[350px] max-h-[150px] overflow-hidden text-ellipsis flex items-start rounded-md pr-2 pl-0 py-1 `}
+      } relative w-[350px] max-h-[150px] overflow-hidden text-ellipsis flex items-start rounded-md pr-2 pl-0 py-1 `}
     >
+      {task.status !== TaskStatus.Archived && (
+        <div
+          className="absolute top-1 right-1 flex items-center justify-center text-slate-500 hover:text-black hover:cursor-pointer rounded-md"
+          onClick={() => setTaskStatus(task.id, TaskStatus.Archived)}
+        >
+          <Archive className="w-5 h-5 " strokeWidth={1.5} />
+        </div>
+      )}
       {/* Status indicator */}
       <div className="basis-10 shrink-0 flex items-center justify-center self-center">
         <div className=" rounded-md bg-slate-200 border border-slate-800 w-6 h-6"></div>

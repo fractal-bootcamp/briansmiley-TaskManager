@@ -1,5 +1,5 @@
 import TaskItem from "./TaskItem";
-import { Task } from "../interfaces/Task.d";
+import { Task } from "../interfaces/Task";
 
 interface TaskListProps {
   tasks: Task[];

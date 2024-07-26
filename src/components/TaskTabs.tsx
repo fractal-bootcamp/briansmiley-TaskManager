@@ -1,5 +1,5 @@
 import TaskList from "./TaskList";
-import { Task, TaskStatus } from "../interfaces/Task.d";
+import { Task, TaskStatus } from "../interfaces/Task";
 
 export default function TaskTabs({ tasks }: { tasks: Task[] }) {
   const pendingTasks = tasks.filter(task => task.status === TaskStatus.Pending);
