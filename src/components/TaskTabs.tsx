@@ -14,6 +14,16 @@ export default function TaskTabs({ tasks }: { tasks: Task[] }) {
         name="task_tabs"
         role="tab"
         className="tab"
+        aria-label="All Tasks"
+      />
+      <div role="tabpanel" className="tab-content p-10">
+        <TaskList tasks={tasks} />
+      </div>
+      <input
+        type="radio"
+        name="task_tabs"
+        role="tab"
+        className="tab"
         aria-label="Pending Tasks"
         defaultChecked
       />
