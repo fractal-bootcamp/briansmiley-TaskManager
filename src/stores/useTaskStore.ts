@@ -10,6 +10,8 @@ interface TaskStore {
     status: keyof Task["statuses"],
     value: boolean
   ) => void;
+  setTaskTitle: (taskId: string, title: string) => void;
+  setTaskDescription: (taskId: string, description: string) => void;
 }
 const useTaskStore = create<TaskStore>()(set => ({
   tasks: [],
@@ -31,6 +33,18 @@ const useTaskStore = create<TaskStore>()(set => ({
         task.id === taskId
           ? { ...task, statuses: { ...task.statuses, [status]: value } }
           : task
+      )
+    })),
+  setTaskTitle: (taskId: string, title: string) =>
+    set(state => ({
+      tasks: state.tasks.map(task =>
+        task.id === taskId ? { ...task, title } : task
+      )
+    })),
+  setTaskDescription: (taskId: string, description: string) =>
+    set(state => ({
+      tasks: state.tasks.map(task =>
+        task.id === taskId ? { ...task, description } : task
       )
     }))
 }));

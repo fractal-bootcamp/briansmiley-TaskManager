@@ -13,9 +13,11 @@ import TaskActionIcon from "./TaskActionIcon";
 
 interface TaskActionIconGroupProps {
   task: Task;
+  editOnclick: () => void;
 }
 export default function TaskActionIconGroup({
-  task
+  task,
+  editOnclick
 }: TaskActionIconGroupProps) {
   const { setTaskStatus } = useTaskStore();
   const completion = {
@@ -38,7 +40,7 @@ export default function TaskActionIconGroup({
   );
   return (
     <div className="flex items-center gap-2">
-      <TaskActionIcon Icon={Edit} action={() => {}} tooltip="Edit" />
+      <TaskActionIcon Icon={Edit} action={editOnclick} tooltip="Edit" />
       {showProgessStatus && (
         <TaskActionIcon
           Icon={progress.icon}
