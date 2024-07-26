@@ -13,11 +13,10 @@ const classes = {
 };
 
 export default function TaskItem({ task }: TaskItemProps) {
+  const displayStatus = task.archived ? "archived" : task.status;
   return (
     <div
-      className={`${
-        classes[task.status]
-      } relative w-[350px] max-h-[150px] flex items-start rounded-md px-2 py-1 `}
+      className={`${classes[displayStatus]} relative w-[350px] max-h-[150px] flex items-start rounded-md px-2 py-1 `}
     >
       <div className="absolute top-1 right-1 flex items-center justify-center text-slate-500 hover:text-black hover:cursor-pointer rounded-md">
         <TaskActionIconGroup task={task} />

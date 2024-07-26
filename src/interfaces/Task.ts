@@ -3,11 +3,7 @@ export interface Task {
   title: string;
   description: string;
   status: TaskStatus;
+  archived: boolean;
 }
 
-export enum TaskStatus {
-  Pending = "pending",
-  InProgress = "inProgress",
-  Completed = "completed",
-  Archived = "archived"
-}
+export type TaskStatus = "pending" | "inProgress" | "completed";
