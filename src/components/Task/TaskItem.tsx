@@ -22,10 +22,7 @@ export default function TaskItem({ task }: TaskItemProps) {
       <div className="absolute top-1 right-1 flex items-center justify-center text-slate-500 hover:text-black hover:cursor-pointer rounded-md">
         <TaskActionIconGroup task={task} />
       </div>
-      {/* Status indicator */}
-      <div className="basis-10 shrink-0 flex items-center justify-center self-center">
-        <div className=" rounded-md bg-slate-200 border border-slate-800 w-6 h-6"></div>
-      </div>
+
       {/* Title and description */}
       <div className={``}>
         <div className="text-lg font-semibold text-black truncate">
