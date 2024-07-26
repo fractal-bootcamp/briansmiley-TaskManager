@@ -7,7 +7,9 @@ export default function TaskTabs({ tasks }: { tasks: Task[] }) {
   );
   const pendingTasks = unfinishedTasks.filter(task => !task.statuses.begun);
   const inProgressTasks = unfinishedTasks.filter(task => task.statuses.begun);
-  const completedTasks = tasks.filter(task => task.statuses.completed);
+  const completedTasks = tasks.filter(
+    task => task.statuses.completed && !task.statuses.archived
+  );
   const archivedTasks = tasks.filter(task => task.statuses.archived);
 
   return (
